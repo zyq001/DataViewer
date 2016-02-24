@@ -1,25 +1,30 @@
 package com.zyq.photogallery;
 
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
-
 //import android.app.Fragment;
 //import android.app.Fragment;
 //import android.app.FragmentManager;
 
-public abstract class SingleFragmentActivity extends FragmentActivity {
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
+/**
+ * 使用layout/activity_fragment视图的容器Activity，作为不同盛载fragment的activity的基类
+ * */
+public abstract class SingleFragmentActivity extends AppCompatActivity {
+
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_fragment);
         setContentView(R.layout.activity_fragment);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        addToolbar();
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
         if (fragment == null) {
@@ -33,7 +38,7 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
 //            @Override
 //            public void onClick(View v) {
 ////                System.out.println();
-//                Intent i = new Intent(MainActivity.this, AnotherActivity.class);
+//                Intent i = new Intent(CrimeDetailsActivity.this, AnotherActivity.class);
 //                i.putExtra("transferDate", "transferedData!");
 //
 //                Bundle bundle = new Bundle();
@@ -49,6 +54,12 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
 //            }
 //        });
 
+    }
+
+    private void addToolbar() {
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle("CrimeRecd");
+        setSupportActionBar(toolbar);
     }
 
     protected abstract Fragment createFragment();
